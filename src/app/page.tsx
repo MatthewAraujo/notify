@@ -31,7 +31,7 @@ export default function Home() {
         <Image
           width={1024}
           height={632}
-          alt="Pandem.dev hero image"
+          alt="Notify.dev hero image"
           src="/hero1.png"
         />
       </div>
@@ -49,7 +49,7 @@ export default function Home() {
             <Feature
               icon={<ArrowUpDown size={24} />}
               headline="Universally compatible"
-              description="Works with PagerDuty, Jira, or custom Slack alerts—Pandem integrates with any system"
+              description="Works with PagerDuty, Jira, or custom Slack alerts—Notify integrates with any system"
             />
             <Feature
               icon={<Workflow size={24} />}
@@ -70,7 +70,7 @@ export default function Home() {
           <Image
             width={1024}
             height={632}
-            alt="Pandem.dev hero image"
+            alt="Notify.dev hero image"
             src="/hero1.png"
           />
         </div>

@@ -34,7 +34,7 @@ export default function Page() {
           directors or other managing authority. Country
           refers to: Ontario, Canada Company (referred to as
           either the Company, We, Us or Our in this
-          Agreement) refers to PANDEM INC., 7014 Dunrobin
+          Agreement) refers to Notify INC., 7014 Dunrobin
           Way Mississauga L5N6Y4. Device means any device
           that can access the Service such as a computer, a
           cellphone or a digital tablet. Service refers to
@@ -49,7 +49,7 @@ export default function Page() {
           information, products or services) provided by a
           third-party that may be displayed, included or
           made available by the Service. Website refers to
-          Pandem, accessible from http://pandem.dev/ You
+          Notify, accessible from http://Notify.dev/ You
           means the individual accessing or using the
           Service, or the company, or other legal entity on
           behalf of which such individual is accessing or
