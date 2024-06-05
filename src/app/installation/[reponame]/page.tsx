@@ -30,7 +30,7 @@ import { InfoIcon } from "lucide-react";
 export default function Page({ params }: { params: { reponame: string } }) {
   return (
     <div className="mx-auto h-full space-y-8">
-      <h1 className="text-2xl font-semibold">Notify</h1>
+      <h1 className="text-2xl font-semibold">{params.reponame}</h1>
       <CheckboxReactHookFormMultiple />
     </div>
   );
