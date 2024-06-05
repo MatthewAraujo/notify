@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -14,27 +15,60 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 import { toast } from "@/components/ui/use-toast";
 import Typography from "@/components/ui/typography";
+import { InfoIcon } from "lucide-react";
 
 export default function Page({ params }: { params: { reponame: string } }) {
   return (
-    <div className="mx-auto max-w-sm space-y-6">
-      <InputForm />
+    <div className="mx-auto h-full space-y-8">
+      <h1 className="text-2xl font-semibold">Notify</h1>
+      <CheckboxReactHookFormMultiple />
     </div>
   );
 }
 
+const items = ["pushes", "pulls", "issues", "recents", "home"].map((item) => ({
+  id: item,
+  label: item.charAt(0).toUpperCase() + item.slice(1),
+}));
+
 const FormSchema = z.object({
-  eventTypes: z.enum(["push", "pull_request", "issues"]),
+  items: z.array(z.string()).refine((value) => value.some((item) => item), {
+    message: "You have to select at least one item.",
+  }),
 });
 
-function InputForm() {
+function Tooltiper({ description }: { description: string }) {
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger>
+          <InfoIcon size="16" />
+        </TooltipTrigger>
+        <TooltipContent>
+          <Typography variant="p" className="white">
+            {description}
+          </Typography>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+}
+
+function CheckboxReactHookFormMultiple() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      eventTypes: "push",
+      items: [],
     },
   });
 
@@ -51,25 +85,64 @@ function InputForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="eventTypes"
-          render={({ field }) => (
+          name="items"
+          render={() => (
             <FormItem>
-              <FormLabel>Event Types</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
+              <div className="mb-4">
+                <FormLabel className="text-base">Sidebar</FormLabel>
+                <FormDescription>
+                  Select the items you want to display in the sidebar.
+                </FormDescription>
+              </div>
+
+              <div className="grid grid-cols-2 gap-1">
+                {items.map((item) => (
+                  <FormField
+                    key={item.id}
+                    control={form.control}
+                    name="items"
+                    render={({ field }) => {
+                      return (
+                        <FormItem
+                          key={item.id}
+                          className="flex flex-row items-start space-x-3 space-y-0"
+                        >
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value?.includes(item.id)}
+                              onCheckedChange={(checked) => {
+                                return checked
+                                  ? field.onChange([...field.value, item.id])
+                                  : field.onChange(
+                                      field.value?.filter(
+                                        (value) => value !== item.id
+                                      )
+                                    );
+                              }}
+                            />
+                          </FormControl>
+                          <FormLabel className="flex items-center justify-between w-full pr-4 font-normal">
+                            {item.label}
+                            <Tooltiper
+                              key={item.id}
+                              description="This is a tooltip description"
+                            />
+                          </FormLabel>
+                        </FormItem>
+                      );
+                    }}
+                  />
+                ))}
+              </div>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button size="tiny" color="ghost">
-          <Typography variant="p" className="text-black">
+        <Button type="submit" size="lg" color="ghost">
+          <Typography variant="p" className="text-black flex">
             Submit
           </Typography>
         </Button>
