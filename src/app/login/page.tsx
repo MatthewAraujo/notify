@@ -1,13 +1,10 @@
-"use client"
+"use client";
 import { Button } from "@/components/ui/button";
 import Typography from "@/components/ui/typography";
 import { handleLogin } from "@/lib/api";
 import { GithubIcon } from "lucide-react";
 
 export default function Page() {
-
-
-
   return (
     <div className="mx-auto max-w-sm space-y-6">
       <Button size="lg" color="ghost" onClick={handleLogin}>
@@ -17,6 +14,5 @@ export default function Page() {
         </Typography>
       </Button>
     </div>
-  )
+  );
 }
-

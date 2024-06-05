@@ -1,42 +1,37 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import { ThemeProvider } from '@/providers/theme-provider'
-import { Header } from '@/components/common/header'
-import { Footer } from '@/components/common/footer'
-import { Analytics } from '@vercel/analytics/react'
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { ThemeProvider } from "@/providers/theme-provider";
+import { Header } from "@/components/common/header";
+import { Footer } from "@/components/common/footer";
+import { Analytics } from "@vercel/analytics/react";
+import { Toaster } from "@/components/ui/toaster";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title:
-    'Notify - Information you need during on-call emergencies',
+  title: "Notify - Information you need during on-call emergencies",
   description:
-    'Quickly link new on-call tickets to similar past incidents and their solutions. All directly in Slack the moment an incident happens.',
+    "Quickly link new on-call tickets to similar past incidents and their solutions. All directly in Slack the moment an incident happens.",
   openGraph: {
-    images: '/opengraph-image.png'
+    images: "/opengraph-image.png",
   },
   twitter: {
-    card: 'summary_large_image',
-    title:
-      'Notify - Information you need during on-call emergencies',
+    card: "summary_large_image",
+    title: "Notify - Information you need during on-call emergencies",
     description:
-      'Quickly link new on-call tickets to similar past incidents and their solutions. All directly in Slack the moment an incident happens.',
-    images: ['https://i.imgur.com/MPMcyPP.png']
-  }
-}
+      "Quickly link new on-call tickets to similar past incidents and their solutions. All directly in Slack the moment an incident happens.",
+    images: ["https://i.imgur.com/MPMcyPP.png"],
+  },
+};
 
 export default function RootLayout({
-  children
+  children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className="antialiased"
-    >
+    <html lang="en" suppressHydrationWarning className="antialiased">
       <Analytics />
       <body className={inter.className}>
         <ThemeProvider
@@ -45,13 +40,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main
-            className={`flex min-h-screen flex-col ${inter.className}`}
-          >
+          <main className={`flex min-h-screen flex-col ${inter.className}`}>
             <Header />
             <div className="flex flex-1 justify-center w-full">
               <div className="flex w-full max-w-[1280px] h-full">
                 {children}
+                <Toaster />
               </div>
             </div>
             <Footer />
@@ -59,5 +53,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }

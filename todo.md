@@ -5,3 +5,5 @@
 [] - user accepts githubapps
 [] - user select with repo
 [] - user confirms
+
+[] - user image from oauth
