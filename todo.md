@@ -7,3 +7,4 @@
 [] - user confirms
 
 [] - user image from oauth
+[] - description for event types

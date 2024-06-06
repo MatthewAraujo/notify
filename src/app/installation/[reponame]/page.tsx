@@ -29,13 +29,17 @@ import { InfoIcon } from "lucide-react";
 
 export default function Page({ params }: { params: { reponame: string } }) {
   return (
-    <div className="mx-auto h-full space-y-8">
-      <h1 className="text-2xl font-semibold">{params.reponame}</h1>
+    <div className="mx-auto h-full space-y-8 ">
+      <h1 className="text-2xl font-semibold">
+        {" "}
+        Create notify for your {params.reponame}
+      </h1>
       <CheckboxReactHookFormMultiple />
     </div>
   );
 }
 
+// get all event type names and description
 const items = ["pushes", "pulls", "issues", "recents", "home"].map((item) => ({
   id: item,
   label: item.charAt(0).toUpperCase() + item.slice(1),
@@ -92,9 +96,9 @@ function CheckboxReactHookFormMultiple() {
           render={() => (
             <FormItem>
               <div className="mb-4">
-                <FormLabel className="text-base">Sidebar</FormLabel>
+                <FormLabel className="text-base">Select your events</FormLabel>
                 <FormDescription>
-                  Select the items you want to display in the sidebar.
+                  Select the events you want to be notified about.
                 </FormDescription>
               </div>
 
