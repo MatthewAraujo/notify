@@ -70,7 +70,10 @@ function showRepositories() {
     <div className="mx-auto max-w-sm  md:max-w-lg space-y-6">
       <div className="space-y-2">
         {repos.map((repo) => (
-          <div className="flex items-center justify-between bg-[#333333] rounded-md p-2">
+          <div
+            key={repo.full_name}
+            className="flex items-center justify-between bg-[#333333] rounded-md p-2"
+          >
             <div className="flex items-center">
               <GitBranch className="text-gray-400 h-5 w-5" />
               <span className="ml-2">{repo.name} - 22h ago</span>
