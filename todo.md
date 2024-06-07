@@ -1,10 +1,6 @@
-[] - login
-[] - user page
-[] - notify flow
-[] - user login
-[] - user accepts githubapps
-[] - user select with repo
-[] - user confirms
+[] - cookies user context
+// server action to get all notifications for a user with event name
 
 [] - user image from oauth
 [] - description for event types
+[] - adicionar url do repositorio

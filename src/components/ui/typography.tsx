@@ -13,7 +13,8 @@ export const typographyVariants = cva('text-xl', {
       h3: 'scroll-m-20 text-2xl font-semibold tracking-tight',
       h4: 'scroll-m-20 text-xl font-semibold tracking-tight',
       h5: 'scroll-m-18 text-lg tracking-tight text-minor',
-      p: 'md:text-sm text-sm leading-7 text-minor'
+      p: 'md:text-sm text-sm leading-7 text-minor',
+      span: 'md:text-sm text-sm font-medium leading-none',
     },
     affects: {
       default: '',
@@ -32,7 +33,7 @@ export const typographyVariants = cva('text-xl', {
 
 export interface TypographyProps
   extends React.HTMLAttributes<HTMLHeadingElement>,
-    VariantProps<typeof typographyVariants> {}
+  VariantProps<typeof typographyVariants> { }
 
 const Typography = React.forwardRef<
   HTMLHeadingElement,

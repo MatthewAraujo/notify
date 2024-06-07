@@ -11,6 +11,12 @@ import {
   DrawerHeader,
   DrawerTrigger
 } from '@/components/ui/drawer'
+
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar"
 import { MenuIcon, X } from 'lucide-react'
 
 interface SidebarProps
@@ -43,17 +49,40 @@ export function Header({ className }: SidebarProps) {
     </Link>
   )
 
+  const userIsLoggedIn = true
+  const username = 'Omar'
   const getAuthButtons = () => (
     <div className="flex gap-3 items-center">
-      <Link
-        href="/login"
-      >
-        <Button size="tiny" color="ghost">
-          <Typography variant="p" className="text-black">
-            Login
-          </Typography>
-        </Button>
-      </Link>
+      {userIsLoggedIn ? (
+        <div className='flex space-x-3 items-center'>
+          <Avatar className="hidden h-9 w-9 sm:flex">
+            <AvatarImage src="/avatars/01.png" alt="Avatar" />
+            <AvatarFallback>OM</AvatarFallback>
+          </Avatar>
+          <Link
+            href="/[username]-projects/projects"
+            as={`/${username}-projects/projects`}
+          >
+            <Button size="tiny" color="ghost">
+              <Typography variant="p" className="text-black">
+                Dashboard
+              </Typography>
+            </Button>
+          </Link>
+
+        </div>
+
+      ) : (
+        <Link
+          href="/login"
+        >
+          <Button size="tiny" color="ghost">
+            <Typography variant="p" className="text-black">
+              Login
+            </Typography>
+          </Button>
+        </Link>
+      )}
     </div>
   )
 
