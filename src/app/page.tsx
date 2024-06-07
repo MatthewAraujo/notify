@@ -61,7 +61,7 @@ export default function Home() {
           </Typography>
           <Typography className="max-w-2xl" variant="p">
             Choose the repositories and notifications you want to receive. Get
-            emails as soon as there's any relevant activity.
+            emails as soon as there&apos;s any relevant activity.
           </Typography>
           <Image
             width={1024}
