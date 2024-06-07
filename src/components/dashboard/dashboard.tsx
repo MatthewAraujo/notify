@@ -104,7 +104,6 @@ export function Dashboard() {
       {
         items.map((item) => (
           <Link
-            // Omar-projects/projects/repo1
             href={`[username]-projects/projects/[reponame]`}
             as={`/${username}-projects/projects/${item.reponame}`}
             key={item.id}
@@ -119,7 +118,7 @@ export function Dashboard() {
               </CardHeader>
               <CardContent>
                 {item.events.map((event) => (
-                  <Typography variant="span" className="text-xs text-muted-foreground">
+                  <Typography key={event.id} variant="span" className="text-xs text-muted-foreground">
                     <Badge variant="outline">{event.name}</Badge>
                   </Typography>
                 ))}
