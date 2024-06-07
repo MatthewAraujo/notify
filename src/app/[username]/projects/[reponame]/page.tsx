@@ -21,17 +21,9 @@ export default function Page({
       id: 3,
       name: "issues",
     },
-    {
-      id: 4,
-      name: "recents",
-    },
-    {
-      id: 5,
-      name: "home",
-    },
   ];
   return (
-    <div className="mx-auto h-full space-y-8 pt-10">
+    <div className="mx-auto h-full max-w-2xl w-full space-y-8 pt-10">
       <h1 className="text-2xl font-semibold">
         {username}&apos;s {reponame}
       </h1>

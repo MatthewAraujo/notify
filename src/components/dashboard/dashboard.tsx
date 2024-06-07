@@ -47,10 +47,6 @@ export function Dashboard() {
           id: 5,
           name: "home",
         },
-        {
-          id: 6,
-          name: "push",
-        },
       ],
     },
     {
@@ -146,7 +142,7 @@ export function Dashboard() {
                     : "Not subscribed"}
                 </Typography>
               </CardDescription>
-              <div className="flex flex-row items-center justify-between space-x-2">
+              <div className="flex flex-row underline items-center justify-between space-x-2">
                 <LucideGithub className="h-4 w-4 text-muted-foreground" />
                 <Typography
                   variant="span"
