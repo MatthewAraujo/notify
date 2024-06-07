@@ -84,30 +84,12 @@ export function Dashboard() {
     {
       id: 4,
       reponame: "repo4",
-      events: [
-        {
-          id: 1,
-          name: "event1",
-        },
-        {
-          id: 2,
-          name: "event2",
-        },
-      ],
+      events: [],
     },
     {
       id: 5,
       reponame: "repo5",
-      events: [
-        {
-          id: 1,
-          name: "event1",
-        },
-        {
-          id: 2,
-          name: "event2",
-        },
-      ],
+      events: [],
     },
   ];
 
@@ -157,7 +139,11 @@ export function Dashboard() {
                   variant="span"
                   className="text-xs text-muted-foreground"
                 >
-                  {item.events.length} events subscribed
+                  {item.events.length > 0
+                    ? item.events.length === 1
+                      ? "1 event subscribed"
+                      : `${item.events.length} events subscribed`
+                    : "Not subscribed"}
                 </Typography>
               </CardDescription>
               <div className="flex flex-row items-center justify-between space-x-2">

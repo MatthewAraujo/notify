@@ -8,7 +8,7 @@ export default function Page({
   const reponame = params.reponame;
   const username = params.username.split("-")[0];
   const user_id = "a4184fa2-ade6-4301-99a8-d9e3215a15a3";
-  const eventss = [
+  const events = [
     {
       id: 1,
       name: "push",
@@ -37,7 +37,7 @@ export default function Page({
       </h1>
       <CheckboxReactHookFormMultiple
         user_id={user_id}
-        events={eventss}
+        events={events}
         repo_name={reponame}
       />
     </div>
