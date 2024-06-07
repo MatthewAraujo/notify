@@ -38,18 +38,23 @@ const FormSchema = z.object({
 interface FormProps {
   user_id: string;
   repo_name: string;
+  events: {
+    id: number;
+    name: string;
+  }[];
 }
 
 export function CheckboxReactHookFormMultiple({
   user_id,
   repo_name,
+  events,
 }: FormProps) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       user_id, // get from page
       repo_name, // get from page
-      items: [],
+      items: [...events.map((event) => event.name)],
     },
   });
 
