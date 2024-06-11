@@ -6,6 +6,7 @@ import { Header } from "@/components/common/header";
 import { Footer } from "@/components/common/footer";
 import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "@/components/ui/toaster";
+import { getUser } from "@/lib/cookies";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +31,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const user = getUser();
   return (
     <html lang="en" suppressHydrationWarning className="antialiased">
       <Analytics />
@@ -41,7 +44,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <main className={`flex min-h-screen flex-col ${inter.className}`}>
-            <Header />
+            <Header user={user} />
             <div className="flex flex-1 justify-center w-full">
               <div className="flex w-full max-w-[1280px] h-full">
                 {children}

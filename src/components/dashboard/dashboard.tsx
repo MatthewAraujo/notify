@@ -11,100 +11,20 @@ import { Badge } from "@/components/ui/badge"
 import { HelpingHand, LucideGithub } from "lucide-react";
 import Typography from "@/components/ui/typography";
 import Link from "next/link";
+import { getUserRepos } from "@/lib/api";
+import { getUser } from "@/lib/cookies";
 
 
-interface SubscriptionProps {
-  id: number,
-  reponame: string,
-  events: {
-    id: number,
-    name: string,
-  }[],
-}
 
 
-export function Dashboard() {
-  const items: SubscriptionProps[] = [
-    {
-      id: 1,
-      reponame: "repo1",
-      events: [
-        {
-          id: 1,
-          name: "event1",
-        },
-        {
-          id: 2,
-          name: "event2",
-        },
-      ],
-    },
-    {
-      id: 2,
-      reponame: "repo2",
-      events: [
-        {
-          id: 1,
-          name: "event1",
-        },
-        {
-          id: 2,
-          name: "event2",
-        },
-      ],
-    },
-    {
-      id: 3,
-      reponame: "repo3",
-      events: [
-        {
-          id: 1,
-          name: "event1",
-        },
-        {
-          id: 2,
-          name: "event2",
-        },
-      ],
-    },
-    {
-      id: 4,
-      reponame: "repo4",
-      events: [
-        {
-          id: 1,
-          name: "event1",
-        },
-        {
-          id: 2,
-          name: "event2",
-        },
-      ],
-    },
-    {
-      id: 5,
-      reponame: "repo5",
-      events: [
-        {
-          id: 1,
-          name: "event1",
-        },
-        {
-          id: 2,
-          name: "event2",
-        },
-      ],
-    },
-
-  ];
-
-  const username = "Omar";
+export async function Dashboard() {
+  const username = await getUser()
+  const items = await getUserRepos({ username: "sistilli" })
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 w-full gap-6">
       {
         items.map((item) => (
           <Link
-            // Omar-projects/projects/repo1
             href={`[username]-projects/projects/[reponame]`}
             as={`/${username}-projects/projects/${item.reponame}`}
             key={item.id}
