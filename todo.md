@@ -8,3 +8,4 @@
 [] - get user info
 [] - get user repos
 [] - get subscription info
+[] - redirect user login to page : `/${user}-projects/projects`
