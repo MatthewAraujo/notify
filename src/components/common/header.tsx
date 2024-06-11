@@ -12,7 +12,6 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-<<<<<<< HEAD
 import {
   Avatar,
   AvatarFallback,
@@ -28,15 +27,6 @@ interface SidebarProps
 
 export async function Header({ className, user }: SidebarProps) {
   const pathname = usePathname()
-=======
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { MenuIcon, X } from "lucide-react";
-
-interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export function Header({ className }: SidebarProps) {
-  const pathname = usePathname();
->>>>>>> refs/remotes/origin/main
   const items = [
     {
       title: "Contact",
@@ -54,15 +44,10 @@ export function Header({ className }: SidebarProps) {
     </Link>
   );
 
-<<<<<<< HEAD
 
 
   const userInfo = await getUserInfo(user as any)
   const userIsLoggedIn = await user ? true : false
-=======
-  const userIsLoggedIn = true;
-  const username = "Omar";
->>>>>>> refs/remotes/origin/main
   const getAuthButtons = () => (
     <div className="flex gap-3 items-center">
       {userIsLoggedIn ? (

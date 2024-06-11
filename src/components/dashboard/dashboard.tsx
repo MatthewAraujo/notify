@@ -18,6 +18,7 @@ import { getUser } from "@/lib/cookies";
 
 
 export async function Dashboard() {
+  const maxEventsToShow = 3;
   const username = await getUser()
   const items = await getUserRepos({ username: "sistilli" })
   return (

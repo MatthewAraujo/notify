@@ -23,11 +23,10 @@ import { Tooltiper } from "@/components/utils/tooltip";
 import { Events } from "@/types";
 import { getAllEvents } from "@/lib/api";
 
+
 // get all event type names and description
-const items = ["pushes", "pulls", "issues", "recents", "home"].map((item) => ({
-  id: item,
-  label: item.charAt(0).toUpperCase() + item.slice(1),
-}));
+const items = getAllEvents();
+
 
 const FormSchema = z.object({
   user_id: z.string().uuid(),
@@ -40,6 +39,7 @@ const FormSchema = z.object({
 interface FormProps {
   user_id: string;
   repo_name: string;
+  events: Events[];
 }
 
 export function CheckboxReactHookFormMultiple({
@@ -52,13 +52,25 @@ export function CheckboxReactHookFormMultiple({
     defaultValues: {
       user_id, // get from page
       repo_name, // get from page
-      items: [],
+      items: [
+        // get from page
+        ...events.map((event) => event.name),
+      ],
     },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
-      description: "Form has been sent successfully",
+      description: (
+        <div>
+          <Typography variant="p">
+            {data.items.length} items selected.
+          </Typography>
+          <Typography variant="p">
+            {data.items.join(", ")}
+          </Typography>
+        </div>
+      ),
     });
   }
 
