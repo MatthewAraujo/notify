@@ -1,9 +1,9 @@
-import { Button } from '@/components/ui/button'
-import Typography from '@/components/ui/typography'
-import Image from 'next/image'
-import Feature from './feature'
-import { ArrowUpDown, Timer, Workflow } from 'lucide-react'
-import Link from 'next/link'
+import { Button } from "@/components/ui/button";
+import Typography from "@/components/ui/typography";
+import Image from "next/image";
+import Feature from "./feature";
+import { ArrowUpDown, Timer, Workflow } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -13,17 +13,14 @@ export default function Home() {
     >
       <div className="flex flex-col gap-6 items-center">
         <Typography className="max-w-2xl" variant="h1">
-          Information you need during on-call emergencies
+          Get GitHub Repository Notifications
         </Typography>
         <Typography className="max-w-2xl" variant="h5">
-          Quickly link new on-call tickets to similar past
-          incidents and their solutions. All directly in
-          Slack the moment an incident happens.
+          Notify is designed to make receiving notifications from GitHub
+          repositories easier. Choose which notifications you want to receive in
+          your email.
         </Typography>
-        <Link
-          href="https://map.sistilli.dev/public/coding/SaaS+Boilerplate"
-          target="_blank"
-        >
+        <Link href="/login">
           <Button size="tiny" variant="ghost">
             {`Get Started`}
           </Button>
@@ -38,18 +35,18 @@ export default function Home() {
       <div className="flex flex-col md:pt-24 md:gap-36 gap-24 items-center">
         <div className="flex flex-col gap-12 items-center">
           <Typography className="max-w-2xl" variant="h1">
-            Quick solutions, less stress
+            Custom Notifications, Less Stress
           </Typography>
           <div className="flex md:flex-row flex-col gap-12">
             <Feature
               icon={<Timer size={24} />}
-              headline="Fix emergencies fast"
-              description="Save 20-30 minutes per on-call ticket - no more searching for relevant issues and runbooks"
+              headline="Choose Your Notifications"
+              description="Select which repositories and types of activities you want to track and receive notifications directly to your email."
             />
             <Feature
               icon={<ArrowUpDown size={24} />}
-              headline="Universally compatible"
-              description="Works with PagerDuty, Jira, or custom Slack alerts—Notify integrates with any system"
+              headline="GitHub Compatible"
+              description="Fully integrated with GitHub, allowing for easy and quick setup."
             />
             <Feature
               icon={<Workflow size={24} />}
@@ -63,9 +60,8 @@ export default function Home() {
             Instant setup, no custom code
           </Typography>
           <Typography className="max-w-2xl" variant="p">
-            Quickly link new on-call tickets to similar past
-            incidents and their solutions. All directly in
-            Slack the moment an incident happens.
+            Choose the repositories and notifications you want to receive. Get
+            emails as soon as there&apos;s any relevant activity.
           </Typography>
           <Image
             width={1024}
@@ -74,21 +70,7 @@ export default function Home() {
             src="/hero1.png"
           />
         </div>
-        <div className="flex flex-col gap-6 items-center">
-          <Typography className="max-w-2xl" variant="h1">
-            Get in touch
-          </Typography>
-          <div>Book a demo, or hop on a call</div>
-          <Link
-            href="https://map.sistilli.dev/public/coding/SaaS+Boilerplate"
-            target="_blank"
-          >
-            <Button size="tiny" variant="ghost">
-              {`Book now`}
-            </Button>
-          </Link>
-        </div>
       </div>
     </div>
-  )
+  );
 }

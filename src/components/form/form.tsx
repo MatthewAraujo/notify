@@ -24,7 +24,10 @@ import { Events } from "@/types";
 import { getAllEvents } from "@/lib/api";
 
 // get all event type names and description
-const items = getAllEvents();
+const items = ["pushes", "pulls", "issues", "recents", "home"].map((item) => ({
+  id: item,
+  label: item.charAt(0).toUpperCase() + item.slice(1),
+}));
 
 const FormSchema = z.object({
   user_id: z.string().uuid(),
@@ -37,7 +40,6 @@ const FormSchema = z.object({
 interface FormProps {
   user_id: string;
   repo_name: string;
-  events: Events[]
 }
 
 export function CheckboxReactHookFormMultiple({
@@ -50,26 +52,22 @@ export function CheckboxReactHookFormMultiple({
     defaultValues: {
       user_id, // get from page
       repo_name, // get from page
-      items: [
-        ...events.map((event) => event.name),
-      ]
+      items: [],
     },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
+      description: "Form has been sent successfully",
     });
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8 border w-full p-4 rounded-md border-gray-500 "
+      >
         <FormField
           control={form.control}
           name="items"
