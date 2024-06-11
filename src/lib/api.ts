@@ -1,14 +1,9 @@
 import { SubscriptionFormProps, UserInfo } from "@/types";
-import { setUser } from "./cookies";
 
 const url = "http://localhost:8080/api/v1";
 
 export const handleLogin = async () => {
-  const res = await fetch(`${url}/auth/{provider}`);
-  const data = await res.json();
-
-  const user = data.user;
-  setUser(user);
+  window.location.href = `${url}/auth/github`;
 };
 
 interface UserProps {

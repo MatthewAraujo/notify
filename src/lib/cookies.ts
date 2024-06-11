@@ -6,7 +6,3 @@ export async function getUser() {
   if (!user) return null;
   return user;
 }
-
-export async function setUser(user: string) {
-  cookies().set("user", user);
-}
