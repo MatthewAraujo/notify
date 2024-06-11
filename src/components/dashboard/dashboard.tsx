@@ -39,7 +39,7 @@ export async function Dashboard() {
               </CardHeader>
               <CardContent>
                 {item.events.map((event) => (
-                  <Typography variant="span" className="text-xs text-muted-foreground">
+                  <Typography key={event.id} variant="span" className="text-xs text-muted-foreground">
                     <Badge variant="outline">{event.name}</Badge>
                   </Typography>
                 ))}
