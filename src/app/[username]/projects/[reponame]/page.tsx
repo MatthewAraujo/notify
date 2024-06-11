@@ -1,15 +1,17 @@
 import { CheckboxReactHookFormMultiple } from "@/components/form/form";
+import { getSubscriptionByRepo } from "@/lib/api";
 
-export default function Page({ params }: { params: { reponame: string } }) {
+export default async function Page({ params }: { params: { reponame: string } }) {
   const reponame = params.reponame;
-  const user_id = "a4184fa2-ade6-4301-99a8-d9e3215a15a3";
+  const subscription = await getSubscriptionByRepo({ reponame });
+
   return (
     <div className="mx-auto h-full space-y-8 ">
       <h1 className="text-2xl font-semibold">
         {" "}
         Create notify for your {params.reponame}
       </h1>
-      <CheckboxReactHookFormMultiple user_id={user_id} repo_name={reponame} />
+      <CheckboxReactHookFormMultiple user_id={subscription.user_id} repo_name={reponame} events={subscription.events} />
     </div>
   );
 }

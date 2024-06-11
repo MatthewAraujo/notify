@@ -18,11 +18,14 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar"
 import { MenuIcon, X } from 'lucide-react'
+import { getUserInfo } from '@/lib/api'
 
 interface SidebarProps
-  extends React.HTMLAttributes<HTMLDivElement> { }
+  extends React.HTMLAttributes<HTMLDivElement> {
+  user: Promise<string | null>
+}
 
-export function Header({ className }: SidebarProps) {
+export async function Header({ className, user }: SidebarProps) {
   const pathname = usePathname()
   const items = [
     {
@@ -49,19 +52,21 @@ export function Header({ className }: SidebarProps) {
     </Link>
   )
 
-  const userIsLoggedIn = true
-  const username = 'Omar'
+
+
+  const userInfo = await getUserInfo(user as any)
+  const userIsLoggedIn = await user ? true : false
   const getAuthButtons = () => (
     <div className="flex gap-3 items-center">
       {userIsLoggedIn ? (
         <div className='flex space-x-3 items-center'>
           <Avatar className="hidden h-9 w-9 sm:flex">
-            <AvatarImage src="/avatars/01.png" alt="Avatar" />
-            <AvatarFallback>OM</AvatarFallback>
+            <AvatarImage src={userInfo.avatar} alt="Avatar" />
+            <AvatarFallback>{userInfo.username}</AvatarFallback>
           </Avatar>
           <Link
             href="/[username]-projects/projects"
-            as={`/${username}-projects/projects`}
+            as={`/${userInfo.username}-projects/projects`}
           >
             <Button size="tiny" color="ghost">
               <Typography variant="p" className="text-black">

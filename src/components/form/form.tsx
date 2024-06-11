@@ -20,12 +20,11 @@ import { toast } from "@/components/ui/use-toast";
 
 import Typography from "@/components/ui/typography";
 import { Tooltiper } from "@/components/utils/tooltip";
+import { Events } from "@/types";
+import { getAllEvents } from "@/lib/api";
 
 // get all event type names and description
-const items = ["pushes", "pulls", "issues", "recents", "home"].map((item) => ({
-  id: item,
-  label: item.charAt(0).toUpperCase() + item.slice(1),
-}));
+const items = getAllEvents();
 
 const FormSchema = z.object({
   user_id: z.string().uuid(),
@@ -38,18 +37,22 @@ const FormSchema = z.object({
 interface FormProps {
   user_id: string;
   repo_name: string;
+  events: Events[]
 }
 
 export function CheckboxReactHookFormMultiple({
   user_id,
   repo_name,
+  events,
 }: FormProps) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       user_id, // get from page
       repo_name, // get from page
-      items: [],
+      items: [
+        ...events.map((event) => event.name),
+      ]
     },
   });
 
@@ -93,20 +96,20 @@ export function CheckboxReactHookFormMultiple({
                         >
                           <FormControl>
                             <Checkbox
-                              checked={field.value?.includes(item.id)}
+                              checked={field.value?.includes(item.name)}
                               onCheckedChange={(checked) => {
                                 return checked
-                                  ? field.onChange([...field.value, item.id])
+                                  ? field.onChange([...field.value, item.name])
                                   : field.onChange(
-                                      field.value?.filter(
-                                        (value) => value !== item.id
-                                      )
-                                    );
+                                    field.value?.filter(
+                                      (value) => value !== item.name
+                                    )
+                                  );
                               }}
                             />
                           </FormControl>
                           <FormLabel className="flex items-center justify-between w-full pr-4 font-normal">
-                            {item.label}
+                            {item.name}
                             <Tooltiper
                               key={item.id}
                               description="This is a tooltip description"
