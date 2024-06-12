@@ -31,7 +31,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const user = getUser();
   return (
     <html lang="en" suppressHydrationWarning className="antialiased">

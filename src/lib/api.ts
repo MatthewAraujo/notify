@@ -37,82 +37,13 @@ interface UsernameProps {
 
 export const getUserRepos = async ({ username }: UsernameProps) => {
   const res = await fetch(`${url}/repository/${username}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch");
+  }
+
   const data = await res.json();
   console.log(data);
   return data as SubscriptionProps[];
-
-  // const items = [
-  //   {
-  //     id: "1",
-  //     reponame: "repo1",
-  //     events: [
-  //       {
-  //         id: "1",
-  //         name: "event1",
-  //       },
-  //       {
-  //         id: "2",
-  //         name: "event2",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: "2",
-  //     reponame: "repo2",
-  //     events: [
-  //       {
-  //         id: "3",
-  //         name: "event3",
-  //       },
-  //       {
-  //         id: "4",
-  //         name: "event4",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: "3",
-  //     reponame: "repo3",
-  //     events: [
-  //       {
-  //         id: "5",
-  //         name: "event5",
-  //       },
-  //       {
-  //         id: "6",
-  //         name: "event6",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: "4",
-  //     reponame: "repo4",
-  //     events: [
-  //       {
-  //         id: "7",
-  //         name: "event7",
-  //       },
-  //       {
-  //         id: "8",
-  //         name: "event8",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: "5",
-  //     reponame: "repo5",
-  //     events: [
-  //       {
-  //         id: "9",
-  //         name: "event9",
-  //       },
-  //       {
-  //         id: "10",
-  //         name: "event10",
-  //       },
-  //     ],
-  //   },
-  // ];
 };
 
 export const getSubscriptionByRepo = async ({
