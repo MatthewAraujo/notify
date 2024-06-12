@@ -1,11 +1,11 @@
 export interface DashboardProps {
   username: string;
   items: {
-    id: string;
-    reponame: string;
+    repo_id: string;
+    repo_name: string;
     events: {
       id: string;
-      name: string;
+      event_name: string;
     }[];
   }[];
 }

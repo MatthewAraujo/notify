@@ -15,13 +15,15 @@ import { DashboardProps } from "@/lib/types";
 
 export async function Dashboard({ username, items }: DashboardProps) {
   const maxEventsToShow = 3;
+  console.log(items);
+  console.log(items[0].events);
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 w-full gap-6">
       {items.map((item) => (
         <Link
           href={`[username]-projects/projects/[reponame]`}
-          as={`/${username}-projects/projects/${item.reponame}`}
-          key={item.id}
+          as={`/${username}-projects/projects/${item.repo_name}`}
+          key={item.repo_id}
           className="cursor-pointer"
         >
           <Card
@@ -30,7 +32,7 @@ export async function Dashboard({ username, items }: DashboardProps) {
           >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-lg font-medium">
-                {item.reponame}
+                {item.repo_name}
               </CardTitle>
               <HelpingHand className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
@@ -41,7 +43,7 @@ export async function Dashboard({ username, items }: DashboardProps) {
                   variant="span"
                   className="text-xs text-muted-foreground"
                 >
-                  <Badge variant="outline">{event.name}</Badge>
+                  <Badge variant="outline">{event.event_name}</Badge>
                 </Typography>
               ))}
               {item.events.length > maxEventsToShow && (

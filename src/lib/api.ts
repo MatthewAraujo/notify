@@ -1,5 +1,4 @@
 import { SubscriptionFormProps, UserInfo } from "@/types";
-import { UUID } from "crypto";
 
 const url = "http://localhost:8080/api/v1";
 
@@ -23,11 +22,11 @@ export const getUserInfo = async ({ username }: UserProps) => {
 };
 
 interface SubscriptionProps {
-  id: UUID;
-  reponame: string;
+  repo_id: string;
+  repo_name: string;
   events: {
-    id: UUID;
-    name: string;
+    id: string;
+    event_name: string;
   }[];
 }
 
@@ -42,7 +41,6 @@ export const getUserRepos = async ({ username }: UsernameProps) => {
   }
 
   const data = await res.json();
-  console.log(data);
   return data as SubscriptionProps[];
 };
 
