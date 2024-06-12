@@ -11,16 +11,10 @@ import { Badge } from "@/components/ui/badge";
 import { HelpingHand, LucideGithub } from "lucide-react";
 import Typography from "@/components/ui/typography";
 import Link from "next/link";
-import { getUserRepos } from "@/lib/api";
-import { getUser } from "@/lib/cookies";
+import { DashboardProps } from "@/lib/types";
 
-
-
-
-export async function Dashboard() {
+export async function Dashboard({ username, items }: DashboardProps) {
   const maxEventsToShow = 3;
-  const username = await getUser()
-  const items = await getUserRepos({ username: "sistilli" })
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 w-full gap-6">
       {items.map((item) => (
