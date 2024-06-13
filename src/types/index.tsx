@@ -3,7 +3,7 @@ import { UUID } from "crypto"
 export interface UserInfo {
   username: string
   email: string
-  avatar: string
+  avatar_url: string
 }
 
 export interface SubscriptionProps {

@@ -61,7 +61,7 @@ export async function Header({ className, user }: SidebarProps) {
       {userIsLoggedIn ? (
         <div className='flex space-x-3 items-center'>
           <Avatar className="hidden h-9 w-9 sm:flex">
-            <AvatarImage src={userInfo.avatar} alt="Avatar" />
+            <AvatarImage src={userInfo.avatar_url} alt="Avatar" />
             <AvatarFallback>{userInfo.username}</AvatarFallback>
           </Avatar>
           <Link

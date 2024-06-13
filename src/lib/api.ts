@@ -15,14 +15,9 @@ interface UserProps {
 }
 
 export const getUserInfo = async ({ username }: UserProps) => {
-  const userInfo = {
-    username: 'MatthewAraujo',
-    email: 'matthewarakpo',
-    avatar: 'https://avatars.githubusercontent.com/u/90223014?v=4'
-  }
-  // const res = await fetch(`${url}/users/${username}`)
-  // const data = await res.json()
-  return userInfo as UserInfo
+  const res = await fetch(`${url}/user/${username}`)
+  const data = await res.json()
+  return data as UserInfo
 }
 
 
