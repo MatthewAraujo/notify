@@ -11,17 +11,17 @@ import { getUser } from "@/lib/cookies";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Notify - Information you need during on-call emergencies",
+  title: "Notify - Get GitHub Repository Notifications",
   description:
-    "Quickly link new on-call tickets to similar past incidents and their solutions. All directly in Slack the moment an incident happens.",
+    "Notify is designed to make receiving notifications from GitHub repositories easier. Choose which notifications you want to receive in your email.",
   openGraph: {
     images: "/opengraph-image.png",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Notify - Information you need during on-call emergencies",
+    title: "Notify - Get GitHub Repository Notifications",
     description:
-      "Quickly link new on-call tickets to similar past incidents and their solutions. All directly in Slack the moment an incident happens.",
+      "Notify is designed to make receiving notifications from GitHub repositories easier. Choose which notifications you want to receive in your email.",
     images: ["https://i.imgur.com/MPMcyPP.png"],
   },
 };
@@ -31,7 +31,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const user = getUser();
   return (
     <html lang="en" suppressHydrationWarning className="antialiased">

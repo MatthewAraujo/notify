@@ -1,47 +1,34 @@
-'use client'
-import { cn } from '@/lib/utils'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { usePathname } from 'next/navigation'
-import Typography from '@/components/ui/typography'
+"use client";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { usePathname } from "next/navigation";
+import Typography from "@/components/ui/typography";
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
   DrawerHeader,
-  DrawerTrigger
-} from '@/components/ui/drawer'
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar"
-import { MenuIcon, X } from 'lucide-react'
-import { getUserInfo } from '@/lib/api'
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { MenuIcon, X } from "lucide-react";
+import { getUserInfo } from "@/lib/api";
 
-interface SidebarProps
-  extends React.HTMLAttributes<HTMLDivElement> {
-  user: Promise<string | null>
+interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
+  user: Promise<string | null>;
 }
 
 export async function Header({ className, user }: SidebarProps) {
-  const pathname = usePathname()
+  const pathname = usePathname();
   const items = [
     {
-      href: 'https://map.sistilli.dev/public/coding/SaaS+Boilerplate',
-      title: 'Book a demo',
-      openInNewTab: true
+      title: "Contact",
+      href: "/contact",
+      openInNewTab: true,
     },
-    {
-      href: '#pricing',
-      title: 'Features'
-    },
-    {
-      href: 'mailto:myemail@.com',
-      title: 'Contact Us'
-    }
-  ]
+  ];
 
   const getLogo = () => (
     <Link href="/" className="pointer flex items-center">
@@ -50,16 +37,14 @@ export async function Header({ className, user }: SidebarProps) {
         Notify
       </Typography>
     </Link>
-  )
+  );
 
-
-
-  const userInfo = await getUserInfo(user as any)
-  const userIsLoggedIn = await user ? true : false
+  const userInfo = await getUserInfo(user as any);
+  const userIsLoggedIn = (await user) ? true : false;
   const getAuthButtons = () => (
     <div className="flex gap-3 items-center">
       {userIsLoggedIn ? (
-        <div className='flex space-x-3 items-center'>
+        <div className="flex space-x-3 items-center">
           <Avatar className="hidden h-9 w-9 sm:flex">
             <AvatarImage src={userInfo.avatar_url} alt="Avatar" />
             <AvatarFallback>{userInfo.username}</AvatarFallback>
@@ -74,13 +59,9 @@ export async function Header({ className, user }: SidebarProps) {
               </Typography>
             </Button>
           </Link>
-
         </div>
-
       ) : (
-        <Link
-          href="/login"
-        >
+        <Link href="/login">
           <Button size="tiny" color="ghost">
             <Typography variant="p" className="text-black">
               Login
@@ -89,34 +70,33 @@ export async function Header({ className, user }: SidebarProps) {
         </Link>
       )}
     </div>
-  )
+  );
 
   const getHeaderItems = () => {
     return (
       <>
         {items.map((item) => {
           const selected =
-            pathname === item.href ||
-            pathname.includes(item.href)
+            pathname === item.href || pathname.includes(item.href);
           return (
             <Link
               href={item.href}
               className="pointer block w-fit"
-              target={item.openInNewTab ? '_blank' : ''}
+              target={item.openInNewTab ? "_blank" : ""}
               key={item.title}
             >
               <Typography
                 variant="p"
-                className={cn(selected && 'text-primary')}
+                className={cn(selected && "text-primary")}
               >
                 {item.title}
               </Typography>
             </Link>
-          )
+          );
         })}
       </>
-    )
-  }
+    );
+  };
 
   return (
     <div
@@ -129,9 +109,7 @@ export async function Header({ className, user }: SidebarProps) {
       <div className="w-full max-w-[1280px] md:px-8 px-4">
         {/* Desktop */}
         <div className="flex items-center gap-x-8 w-full">
-          <div className="md:flex-0 min-w-fit flex-1">
-            {getLogo()}
-          </div>
+          <div className="md:flex-0 min-w-fit flex-1">{getLogo()}</div>
           <div className="hidden md:flex items-center w-full">
             <div className="flex items-center gap-x-8 flex-1">
               {getHeaderItems()}
@@ -154,9 +132,7 @@ export async function Header({ className, user }: SidebarProps) {
                       </div>
                     </DrawerClose>
                   </DrawerHeader>
-                  <div className="p-4 pb-0 space-y-4">
-                    {getHeaderItems()}
-                  </div>
+                  <div className="p-4 pb-0 space-y-4">{getHeaderItems()}</div>
                 </div>
               </DrawerContent>
             </Drawer>
@@ -164,5 +140,5 @@ export async function Header({ className, user }: SidebarProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }

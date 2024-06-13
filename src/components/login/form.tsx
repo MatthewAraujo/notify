@@ -1,23 +1,18 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import Typography from "../ui/typography"
-import { LucideGithub } from "lucide-react"
-import { handleLogin } from "@/lib/api"
-
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Typography from "../ui/typography";
+import { LucideGithub } from "lucide-react";
+import { handleLogin } from "@/lib/api";
 
 export function LoginForm() {
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
-        <CardTitle className="text-xl">Login with your Github Account</CardTitle>
+        <CardTitle className="text-xl">
+          Login with your Github Account
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid gap-4">
@@ -29,5 +24,5 @@ export function LoginForm() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
