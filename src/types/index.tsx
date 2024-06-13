@@ -1,15 +1,8 @@
 import { UUID } from "crypto";
 
 export interface UserInfo {
-<<<<<<< HEAD
   username: string
-  email: string
   avatar_url: string
-=======
-  username: string;
-  email: string;
-  avatar: string;
->>>>>>> main
 }
 
 export interface SubscriptionProps {
