@@ -12,8 +12,8 @@ import {
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MenuIcon, X } from "lucide-react";
-import ServerComponent from "./serverComponent";
-import { GetHeaderItems } from "./headerItems";
+import { GetHeaderItems } from "./components/headerItems";
+import ServerComponent from "./components/serverComponent";
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export async function Header({ className }: SidebarProps) {
