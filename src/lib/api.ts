@@ -1,21 +1,11 @@
 import { SubscriptionFormProps, UserInfo } from "@/types";
-import { userInfo } from "os";
 
-const url = "http://localhost:8080/api/v1";
+export const url = "http://localhost:8080/api/v1";
 
 export const handleLogin = async () => {
   window.location.href = `${url}/auth/github`;
 };
 
-interface UserProps {
-  username: Promise<string | null>;
-}
-
-export const getUserInfo = async ({ username }: UserProps) => {
-  const res = await fetch(`${url}/users/${username}`)
-  const data = await res.json()
-  return data as UserInfo
-}
 
 
 interface SubscriptionProps {

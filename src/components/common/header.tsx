@@ -14,13 +14,10 @@ import {
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MenuIcon, X } from "lucide-react";
-import { getUserInfo } from "@/lib/api";
+import ServerComponent from "./serverComponent";
+interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> { }
 
-interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
-  user: Promise<string | null>;
-}
-
-export async function Header({ className, user }: SidebarProps) {
+export async function Header({ className }: SidebarProps) {
   const pathname = usePathname();
   const items = [
     {
@@ -39,38 +36,44 @@ export async function Header({ className, user }: SidebarProps) {
     </Link>
   );
 
-  const userInfo = await getUserInfo(user as any);
-  const userIsLoggedIn = (await user) ? true : false;
-  const getAuthButtons = () => (
-    <div className="flex gap-3 items-center">
-      {userIsLoggedIn ? (
-        <div className="flex space-x-3 items-center">
-          <Avatar className="hidden h-9 w-9 sm:flex">
-            <AvatarImage src={userInfo.avatar_url} alt="Avatar" />
-            <AvatarFallback>{userInfo.username}</AvatarFallback>
-          </Avatar>
-          <Link
-            href="/[username]-projects/projects"
-            as={`/${userInfo.username}-projects/projects`}
-          >
-            <Button size="tiny" color="ghost">
-              <Typography variant="p" className="text-black">
-                Dashboard
-              </Typography>
-            </Button>
-          </Link>
-        </div>
-      ) : (
-        <Link href="/login">
-          <Button size="tiny" color="ghost">
-            <Typography variant="p" className="text-black">
-              Login
-            </Typography>
-          </Button>
-        </Link>
-      )}
-    </div>
-  );
+
+  const getAuthButtons = () => {
+    return (
+      <ServerComponent>
+        {({ user, userInfo }) => {
+          console.log(userInfo);
+          const userIsLoggedIn = user !== null;
+          return (
+            <div className="flex gap-3 items-center">
+              {userIsLoggedIn ? (
+                <div className="flex space-x-3 items-center">
+                  <Avatar className="hidden h-9 w-9 sm:flex">
+                    <AvatarImage src={userInfo.avatar_url} alt="Avatar" />
+                    <AvatarFallback>{userInfo.username}</AvatarFallback>
+                  </Avatar>
+                  <Link href="/[username]-projects/projects" as={`/${userInfo.username}-projects/projects`}>
+                    <Button size="tiny" color="ghost">
+                      <Typography variant="p" className="text-black">
+                        Dashboard
+                      </Typography>
+                    </Button>
+                  </Link>
+                </div>
+              ) : (
+                <Link href="/login">
+                  <Button size="tiny" color="ghost">
+                    <Typography variant="p" className="text-black">
+                      Login
+                    </Typography>
+                  </Button>
+                </Link>
+              )}
+            </div>
+          );
+        }}
+      </ServerComponent>
+    );
+  };
 
   const getHeaderItems = () => {
     return (
