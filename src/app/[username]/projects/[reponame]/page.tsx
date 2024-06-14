@@ -6,11 +6,7 @@ export default async function Page({ params }: { params: { reponame: string } })
   const subscription = await getSubscriptionByRepo({ reponame });
 
   return (
-    <div className="mx-auto h-full space-y-8 ">
-      <h1 className="text-2xl font-semibold">
-        {" "}
-        Create notify for your {params.reponame}
-      </h1>
+    <div className="mx-auto h-full max-w-2xl w-full space-y-8 pt-10">
       <CheckboxReactHookFormMultiple user_id={subscription.user_id} repo_name={reponame} events={subscription.events} />
     </div>
   );

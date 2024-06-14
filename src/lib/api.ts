@@ -1,142 +1,60 @@
-import { SubscriptionFormProps, UserInfo } from "@/types"
+import { SubscriptionFormProps, UserInfo } from "@/types";
 
-const url = 'http://localhost:8080/api/v1'
+export const url = "http://localhost:8080/api/v1";
 
 export const handleLogin = async () => {
-  const res = await fetch(`${url}/auth/{provider}`)
-  const data = await res.json()
-  console.log(data)
-}
+  window.location.href = `${url}/auth/github`;
+};
 
-
-interface UserProps {
-  username: Promise<string | null>
-
-}
-
-export const getUserInfo = async ({ username }: UserProps) => {
-  const userInfo = {
-    username: 'MatthewAraujo',
-    email: 'matthewarakpo',
-    avatar: 'https://avatars.githubusercontent.com/u/90223014?v=4'
-  }
-  // const res = await fetch(`${url}/users/${username}`)
-  // const data = await res.json()
-  return userInfo as UserInfo
-}
 
 
 interface SubscriptionProps {
-  id: number,
-  reponame: string,
+  repo_id: string;
+  repo_name: string;
   events: {
-    id: number,
-    name: string,
-  }[],
+    id: string;
+    event_name: string;
+  }[];
 }
 
-export const getUserRepos = async ({ username }: { username: string }) => {
-  const items: SubscriptionProps[] = [
-    {
-      id: 1,
-      reponame: "repo1",
-      events: [
-        {
-          id: 1,
-          name: "event1",
-        },
-        {
-          id: 2,
-          name: "event2",
-        },
-      ],
-    },
-    {
-      id: 2,
-      reponame: "repo2",
-      events: [
-        {
-          id: 1,
-          name: "event1",
-        },
-        {
-          id: 2,
-          name: "event2",
-        },
-      ],
-    },
-    {
-      id: 3,
-      reponame: "repo3",
-      events: [
-        {
-          id: 1,
-          name: "event1",
-        },
-        {
-          id: 2,
-          name: "event2",
-        },
-      ],
-    },
-    {
-      id: 4,
-      reponame: "repo4",
-      events: [
-        {
-          id: 1,
-          name: "event1",
-        },
-        {
-          id: 2,
-          name: "event2",
-        },
-      ],
-    },
-    {
-      id: 5,
-      reponame: "repo5",
-      events: [
-        {
-          id: 1,
-          name: "event1",
-        },
-        {
-          id: 2,
-          name: "event2",
-        },
-      ],
-    },
-
-  ];
-
-
-  // const res = await fetch(`${url}/users/${username}/repos`)
-  // const data = await res.json()
-  return items
+interface UsernameProps {
+  username: string;
 }
 
-export const getSubscriptionByRepo = async ({ reponame }: { reponame: string }) => {
+export const getUserRepos = async ({ username }: UsernameProps) => {
+  const res = await fetch(`${url}/repository/${username}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch");
+  }
 
+  const data = await res.json();
+  return data as SubscriptionProps[];
+};
+
+export const getSubscriptionByRepo = async ({
+  reponame,
+}: {
+  reponame: string;
+}) => {
   const items: SubscriptionFormProps = {
-    user_id: 'eee5a383-a80a-4990-9978-b1baf7d2f9c8',
+    user_id: "eee5a383-a80a-4990-9978-b1baf7d2f9c8",
     repo_name: reponame,
     events: [
       {
-        id: '1',
-        name: 'event1',
+        id: "1",
+        name: "event1",
       },
       {
-        id: '2',
-        name: 'event2',
+        id: "2",
+        name: "event2",
       },
     ],
-  }
+  };
 
   // const res = await fetch(`${url}/repos/${reponame}/subscriptions`)
   // const data = await res.json()
-  return items
-}
+  return items;
+};
 
 export const getAllEvents = () => {
   const items = [
@@ -179,7 +97,7 @@ export const getAllEvents = () => {
     {
       id: "10",
       name: "event10",
-    }
-  ]
-  return items
-}
+    },
+  ];
+  return items;
+};

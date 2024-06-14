@@ -1,27 +1,26 @@
-import { UUID } from "crypto"
+import { UUID } from "crypto";
 
 export interface UserInfo {
   username: string
-  email: string
-  avatar: string
+  avatar_url: string
 }
 
 export interface SubscriptionProps {
-  id: number,
-  reponame: string,
+  id: UUID;
+  reponame: string;
   events: {
-    id: number,
-    name: string,
-  }[],
+    id: UUID;
+    name: string;
+  }[];
 }
 
 export interface SubscriptionFormProps {
-  user_id: UUID,
-  repo_name: string,
-  events: Events[]
+  user_id: UUID;
+  repo_name: string;
+  events: Events[];
 }
 
 export interface Events {
-  id: string
+  id: string;
   name: string;
 }
