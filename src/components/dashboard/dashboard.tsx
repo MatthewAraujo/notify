@@ -15,8 +15,6 @@ import { DashboardProps } from "@/lib/types";
 
 export async function Dashboard({ username, items }: DashboardProps) {
   const maxEventsToShow = 3;
-  console.log(items);
-  console.log(items[0].events);
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 w-full gap-6">
       {items.map((item) => (

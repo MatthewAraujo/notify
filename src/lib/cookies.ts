@@ -8,12 +8,11 @@ export default async function getUser() {
   const cookieStore = cookies();
   const username = cookieStore.get("username");
 
-  console.log(username);
   if (username == undefined) {
     return null;
   }
 
-  return { username };
+  return username;
 }
 
 interface UserProps {
@@ -21,7 +20,7 @@ interface UserProps {
 }
 
 export const getUserInfo = async ({ username }: UserProps) => {
-  const res = await fetch(`${url}/users/${username}`);
+  const res = await fetch(`${url}/user/${username}`);
   if (!res.ok) {
     return { username: "", avatar_url: "" };
   }

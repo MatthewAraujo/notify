@@ -6,8 +6,6 @@ export const handleLogin = async () => {
   window.location.href = `${url}/auth/github`;
 };
 
-
-
 interface SubscriptionProps {
   repo_id: string;
   repo_name: string;
@@ -22,9 +20,11 @@ interface UsernameProps {
 }
 
 export const getUserRepos = async ({ username }: UsernameProps) => {
-  const res = await fetch(`${url}/repository/${username}`);
+  const res = await fetch(`${url}/repository/${username}`, {
+    cache: "no-store",
+  });
   if (!res.ok) {
-    throw new Error("Failed to fetch");
+    return [];
   }
 
   const data = await res.json();

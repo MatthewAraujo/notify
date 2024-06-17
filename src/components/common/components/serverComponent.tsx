@@ -13,11 +13,9 @@ export default async function ServerComponent({
   children,
 }: ServerComponentProps) {
   const user = await getUser();
-  console.log(user);
   if (user === null) {
-    return children({ user: null, userInfo: { username: "", avatar_url: "" } });
+    return children({ user: { username: null }, userInfo: {} });
   }
-
-  const userInfo = await getUserInfo({ username: user.username });
+  const userInfo = await getUserInfo({ username: user.value });
   return children({ user, userInfo });
 }
