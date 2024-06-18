@@ -27,7 +27,7 @@ export const getSubscriptionByRepo = async ({
 }: {
   reponame: string;
 }) => {
-  const res = await fetch(`${url}/repos/${reponame}/subscriptions`);
+  const res = await fetch(`${url}/events/${reponame}`);
   const data = await res.json();
   return data as SubscriptionFormProps;
 };
