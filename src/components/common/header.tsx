@@ -1,8 +1,6 @@
-"use client";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { usePathname } from "next/navigation";
 import Typography from "@/components/ui/typography";
 import {
   Drawer,
@@ -14,19 +12,11 @@ import {
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MenuIcon, X } from "lucide-react";
-import ServerComponent from "./serverComponent";
-interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> { }
+import { GetHeaderItems } from "./components/headerItems";
+import ServerComponent from "./components/serverComponent";
+interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export async function Header({ className }: SidebarProps) {
-  const pathname = usePathname();
-  const items = [
-    {
-      title: "Contact",
-      href: "/contact",
-      openInNewTab: true,
-    },
-  ];
-
   const getLogo = () => (
     <Link href="/" className="pointer flex items-center">
       <img src="/logo.svg" className="mr-3" />
@@ -36,12 +26,10 @@ export async function Header({ className }: SidebarProps) {
     </Link>
   );
 
-
   const getAuthButtons = () => {
     return (
       <ServerComponent>
         {({ user, userInfo }) => {
-          console.log(userInfo);
           const userIsLoggedIn = user !== null;
           return (
             <div className="flex gap-3 items-center">
@@ -51,7 +39,10 @@ export async function Header({ className }: SidebarProps) {
                     <AvatarImage src={userInfo.avatar_url} alt="Avatar" />
                     <AvatarFallback>{userInfo.username}</AvatarFallback>
                   </Avatar>
-                  <Link href="/[username]-projects/projects" as={`/${userInfo.username}-projects/projects`}>
+                  <Link
+                    href="/[username]-projects/projects"
+                    as={`/${userInfo.username}-projects/projects`}
+                  >
                     <Button size="tiny" color="ghost">
                       <Typography variant="p" className="text-black">
                         Dashboard
@@ -75,32 +66,6 @@ export async function Header({ className }: SidebarProps) {
     );
   };
 
-  const getHeaderItems = () => {
-    return (
-      <>
-        {items.map((item) => {
-          const selected =
-            pathname === item.href || pathname.includes(item.href);
-          return (
-            <Link
-              href={item.href}
-              className="pointer block w-fit"
-              target={item.openInNewTab ? "_blank" : ""}
-              key={item.title}
-            >
-              <Typography
-                variant="p"
-                className={cn(selected && "text-primary")}
-              >
-                {item.title}
-              </Typography>
-            </Link>
-          );
-        })}
-      </>
-    );
-  };
-
   return (
     <div
       className={cn(
@@ -115,7 +80,7 @@ export async function Header({ className }: SidebarProps) {
           <div className="md:flex-0 min-w-fit flex-1">{getLogo()}</div>
           <div className="hidden md:flex items-center w-full">
             <div className="flex items-center gap-x-8 flex-1">
-              {getHeaderItems()}
+              <GetHeaderItems />
             </div>
             {getAuthButtons()}
           </div>
@@ -135,7 +100,9 @@ export async function Header({ className }: SidebarProps) {
                       </div>
                     </DrawerClose>
                   </DrawerHeader>
-                  <div className="p-4 pb-0 space-y-4">{getHeaderItems()}</div>
+                  <div className="p-4 pb-0 space-y-4">
+                    <GetHeaderItems />
+                  </div>
                 </div>
               </DrawerContent>
             </Drawer>

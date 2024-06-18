@@ -23,30 +23,27 @@ import { Tooltiper } from "@/components/utils/tooltip";
 import { Events } from "@/types";
 import { getAllEvents } from "@/lib/api";
 
-
-// get all event type names and description
-const items = getAllEvents();
-
-
-const FormSchema = z.object({
-  user_id: z.string().uuid(),
-  repo_name: z.string(),
-  items: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "You have to select at least one item.",
-  }),
-});
-
 interface FormProps {
   user_id: string;
   repo_name: string;
   events: Events[];
 }
 
-export function CheckboxReactHookFormMultiple({
+export async function CheckboxReactHookFormMultiple({
   user_id,
   repo_name,
   events,
 }: FormProps) {
+  const items = await getAllEvents();
+
+  const FormSchema = z.object({
+    user_id: z.string().uuid(),
+    repo_name: z.string(),
+    items: z.array(z.string()).refine((value) => value.some((item) => item), {
+      message: "You have to select at least one item.",
+    }),
+  });
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -66,9 +63,7 @@ export function CheckboxReactHookFormMultiple({
           <Typography variant="p">
             {data.items.length} items selected.
           </Typography>
-          <Typography variant="p">
-            {data.items.join(", ")}
-          </Typography>
+          <Typography variant="p">{data.items.join(", ")}</Typography>
         </div>
       ),
     });
@@ -111,10 +106,10 @@ export function CheckboxReactHookFormMultiple({
                                 return checked
                                   ? field.onChange([...field.value, item.name])
                                   : field.onChange(
-                                    field.value?.filter(
-                                      (value) => value !== item.name
-                                    )
-                                  );
+                                      field.value?.filter(
+                                        (value) => value !== item.name
+                                      )
+                                    );
                               }}
                             />
                           </FormControl>

@@ -9,3 +9,4 @@
 [] - get user repos
 [] - get subscription info
 [X] - redirect user login to page : `/${user}-projects/projects`
+[] - with the users exists just login
