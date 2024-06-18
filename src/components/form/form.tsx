@@ -23,10 +23,8 @@ import { Tooltiper } from "@/components/utils/tooltip";
 import { Events } from "@/types";
 import { getAllEvents } from "@/lib/api";
 
-
 // get all event type names and description
-const items = getAllEvents();
-
+const items = await getAllEvents();
 
 const FormSchema = z.object({
   user_id: z.string().uuid(),
@@ -66,9 +64,7 @@ export function CheckboxReactHookFormMultiple({
           <Typography variant="p">
             {data.items.length} items selected.
           </Typography>
-          <Typography variant="p">
-            {data.items.join(", ")}
-          </Typography>
+          <Typography variant="p">{data.items.join(", ")}</Typography>
         </div>
       ),
     });
@@ -111,10 +107,10 @@ export function CheckboxReactHookFormMultiple({
                                 return checked
                                   ? field.onChange([...field.value, item.name])
                                   : field.onChange(
-                                    field.value?.filter(
-                                      (value) => value !== item.name
-                                    )
-                                  );
+                                      field.value?.filter(
+                                        (value) => value !== item.name
+                                      )
+                                    );
                               }}
                             />
                           </FormControl>
