@@ -35,7 +35,7 @@ export async function Dashboard({ username, items }: DashboardProps) {
               <HelpingHand className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent className="flex gap-2">
-              {item.events.slice(0, maxEventsToShow).map((event, index) => (
+              {item.events?.slice(0, maxEventsToShow).map((event, index) => (
                 <Typography
                   key={event.id}
                   variant="span"
@@ -44,12 +44,12 @@ export async function Dashboard({ username, items }: DashboardProps) {
                   <Badge variant="outline">{event.event_name}</Badge>
                 </Typography>
               ))}
-              {item.events.length > maxEventsToShow && (
+              {item.events?.length > maxEventsToShow && (
                 <Typography
                   variant="span"
                   className="text-xs text-muted-foreground"
                 >
-                  +{item.events.length - maxEventsToShow} more
+                  +{item.events?.length - maxEventsToShow} more
                 </Typography>
               )}
             </CardContent>
@@ -59,10 +59,10 @@ export async function Dashboard({ username, items }: DashboardProps) {
                   variant="span"
                   className="text-xs text-muted-foreground"
                 >
-                  {item.events.length > 0
-                    ? item.events.length === 1
+                  {item.events?.length > 0
+                    ? item.events?.length === 1
                       ? "1 event subscribed"
-                      : `${item.events.length} events subscribed`
+                      : `${item.events?.length} events subscribed`
                     : "Not subscribed"}
                 </Typography>
               </CardDescription>

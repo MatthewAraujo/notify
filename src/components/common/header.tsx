@@ -30,7 +30,7 @@ export async function Header({ className }: SidebarProps) {
     return (
       <ServerComponent>
         {({ user, userInfo }) => {
-          const userIsLoggedIn = user?.value !== null;
+          const userIsLoggedIn = user !== null;
           return (
             <div className="flex gap-3 items-center">
               {userIsLoggedIn ? (
