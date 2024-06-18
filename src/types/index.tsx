@@ -12,14 +12,15 @@ export interface SubscriptionProps {
 }
 
 export interface SubscriptionFormProps {
-  user_id: UUID;
-  repo_name: string;
+  user_id: string;
+  reponame: string;
   events: Events[];
 }
 
 export interface Events {
   id: string;
-  name: string;
+  event_name: string;
+  description: string;
 }
 
 export interface DashboardProps {
@@ -32,4 +33,21 @@ export interface DashboardProps {
       event_name: string;
     }[];
   }[];
+}
+
+export interface Notification {
+  user_id: string;
+  repo_name: string;
+  events: string[];
+}
+
+export interface NotificationEdit {
+  user_id: string;
+  repo_name: string;
+  events: EventsEdit;
+}
+
+interface EventsEdit {
+  added: string[];
+  removed: string[];
 }
