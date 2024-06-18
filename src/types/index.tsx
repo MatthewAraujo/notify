@@ -6,12 +6,9 @@ export interface UserInfo {
 }
 
 export interface SubscriptionProps {
-  id: UUID;
-  reponame: string;
-  events: {
-    id: UUID;
-    name: string;
-  }[];
+  repo_id: string;
+  repo_name: string;
+  events: { id: string; name: string }[] | null;
 }
 
 export interface SubscriptionFormProps {
@@ -24,6 +21,7 @@ export interface Events {
   id: string;
   name: string;
 }
+
 export interface DashboardProps {
   username: string;
   items: {

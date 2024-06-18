@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { HelpingHand, LucideGithub } from "lucide-react";
 import Typography from "@/components/ui/typography";
 import Link from "next/link";
-import { DashboardProps } from "@/lib/types";
+import { DashboardProps } from "@/types";
 
 export async function Dashboard({ username, items }: DashboardProps) {
   const maxEventsToShow = 3;
