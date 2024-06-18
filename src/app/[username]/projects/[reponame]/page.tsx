@@ -1,4 +1,4 @@
-import { CheckboxReactHookFormMultiple } from "@/components/form/form";
+import { ServerEventsLoader } from "@/components/form/ServerEventsLoader";
 import { getSubscriptionByRepo } from "@/lib/api";
 
 export default async function Page({
@@ -7,15 +7,11 @@ export default async function Page({
   params: { reponame: string };
 }) {
   const reponame = params.reponame;
-  const subscription = await getSubscriptionByRepo({ reponame });
-  console.log(subscription);
+  const subscription: any = await getSubscriptionByRepo({ reponame });
   return (
     <div className="mx-auto h-full max-w-2xl w-full space-y-8 pt-10">
-      {/* <CheckboxReactHookFormMultiple
-        user_id={subscription.user_id}
-        repo_name={reponame}
-        events={subscription.events}
-      /> */}
+      <ServerEventsLoader user_id={subscription.user_id} repo_name={reponame} events={subscription.events} />
+
     </div>
   );
 }
