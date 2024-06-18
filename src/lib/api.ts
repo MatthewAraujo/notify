@@ -1,4 +1,5 @@
-import { SubscriptionFormProps, UserInfo } from "@/types";
+import { Events, SubscriptionFormProps, SubscriptionProps } from "@/types";
+import console from "console";
 
 export const url = "http://localhost:8080/api/v1";
 
@@ -6,98 +7,66 @@ export const handleLogin = async () => {
   window.location.href = `${url}/auth/github`;
 };
 
-
-
-interface SubscriptionProps {
-  repo_id: string;
-  repo_name: string;
-  events: {
-    id: string;
-    event_name: string;
-  }[];
-}
-
 interface UsernameProps {
   username: string;
 }
 
 export const getUserRepos = async ({ username }: UsernameProps) => {
-  const res = await fetch(`${url}/repository/${username}`);
+  const res = await fetch(`${url}/repository/${username}`, {
+    cache: "no-store",
+  });
   if (!res.ok) {
-    throw new Error("Failed to fetch");
+    return [];
   }
 
   const data = await res.json();
   return data as SubscriptionProps[];
 };
 
-export const getSubscriptionByRepo = async ({
-  reponame,
-}: {
-  reponame: string;
-}) => {
-  const items: SubscriptionFormProps = {
-    user_id: "eee5a383-a80a-4990-9978-b1baf7d2f9c8",
-    repo_name: reponame,
-    events: [
-      {
-        id: "1",
-        name: "event1",
-      },
-      {
-        id: "2",
-        name: "event2",
-      },
-    ],
-  };
+export const getSubscriptionByRepo = async ({ reponame }: { reponame: string }) => {
+  const res = await fetch(`${url}/events/${reponame}`, {
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    return [];
+  }
+  const data = await res.json();
+  if (!data) {
+    return [];
+  }
 
-  // const res = await fetch(`${url}/repos/${reponame}/subscriptions`)
-  // const data = await res.json()
-  return items;
+  if (!data.events) {
+    data.events = [];
+  }
+
+  return data as SubscriptionFormProps;
+}
+
+export const getAllEvents = async () => {
+  const res = await fetch(`${url}/events`);
+  const data = await res.json();
+  return data as Events[];
 };
 
-export const getAllEvents = () => {
-  const items = [
-    {
-      id: "1",
-      name: "event1",
+
+export const createSubscription = async (data: Notification) => {
+  const res = await fetch(`${url}/events`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-    {
-      id: "2",
-      name: "event2",
+    body: JSON.stringify(data),
+  });
+  return res.ok;
+}
+
+export const updateSubscription = async (data: SubscriptionFormProps) => {
+  const res = await fetch(`${url}/events`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
     },
-    {
-      id: "3",
-      name: "event3",
-    },
-    {
-      id: "4",
-      name: "event4",
-    },
-    {
-      id: "5",
-      name: "event5",
-    },
-    {
-      id: "6",
-      name: "event6",
-    },
-    {
-      id: "7",
-      name: "event7",
-    },
-    {
-      id: "8",
-      name: "event8",
-    },
-    {
-      id: "9",
-      name: "event9",
-    },
-    {
-      id: "10",
-      name: "event10",
-    },
-  ];
-  return items;
-};
+    body: JSON.stringify(data),
+  });
+  return res.ok;
+}
