@@ -16,7 +16,7 @@ export default async function getUser() {
 }
 
 interface UserProps {
-  username: Promise<{ username: RequestCookie | undefined }>;
+  username: string;
 }
 
 export const getUserInfo = async ({ username }: UserProps) => {

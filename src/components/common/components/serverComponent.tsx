@@ -4,7 +4,7 @@ import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
 interface ServerComponentProps {
   children: (props: {
-    user: Promise<{ username: RequestCookie | null }>;
+    user: RequestCookie | null;
     userInfo: UserInfo;
   }) => JSX.Element;
 }
@@ -14,7 +14,7 @@ export default async function ServerComponent({
 }: ServerComponentProps) {
   const user = await getUser();
   if (user === null) {
-    return children({ user: { username: null }, userInfo: {} });
+    return children({ user: null, userInfo: { avatar_url: "", username: "" } });
   }
   const userInfo = await getUserInfo({ username: user.value });
   return children({ user, userInfo });
