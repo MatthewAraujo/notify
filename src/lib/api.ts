@@ -1,5 +1,4 @@
-import { Events, SubscriptionFormProps, SubscriptionProps } from "@/types";
-import console from "console";
+import { SubscriptionProps, SubscriptionFormProps, Events, NotificationEdit, NotificationProps } from "@/types";
 
 export const url = "http://localhost:8080/api/v1";
 
@@ -49,23 +48,17 @@ export const getAllEvents = async () => {
 };
 
 
-export const createSubscription = async (data: Notification) => {
-  const res = await fetch(`${url}/events`, {
+export const createSubscription = async (data: NotificationProps) => {
+  const res = await fetch(`${url}/notification`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify(data),
   });
-  return res.ok;
+  return res
 }
 
-export const updateSubscription = async (data: SubscriptionFormProps) => {
-  const res = await fetch(`${url}/events`, {
+export const updateSubscription = async (data: NotificationEdit) => {
+  const res = await fetch(`${url}/notification/${data.notificationSubscription}`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify(data),
   });
   return res.ok;

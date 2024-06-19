@@ -35,13 +35,14 @@ export interface DashboardProps {
   }[];
 }
 
-export interface Notification {
+export interface NotificationProps {
   user_id: string;
   repo_name: string;
   events: string[];
 }
 
 export interface NotificationEdit {
+  notificationSubscription: string;
   user_id: string;
   repo_name: string;
   events: EventsEdit;
