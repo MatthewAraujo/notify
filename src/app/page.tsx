@@ -67,7 +67,7 @@ export default function Home() {
             width={1024}
             height={632}
             alt="Notify.dev hero image"
-            src="/hero1.png"
+            src="/hero2.png"
           />
         </div>
       </div>

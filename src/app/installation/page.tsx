@@ -12,13 +12,13 @@ export default function Page() {
   }
 
   return (
-    <div className="mx-auto max-w-sm  md:max-w-lg space-y-6">
+    <div className="mx-auto max-w-sm  md:max-w-lg space-y-6 text-center">
       <Typography variant="h2" className="text-center">
-        Connect installation to Notify
+        Get GitHub Repository Notifications
       </Typography>
       <Button size="lg" color="ghost" onClick={handleInstallation}>
         <Typography variant="p" className="text-black flex">
-          Github
+          Get Started
         </Typography>
       </Button>
     </div>
