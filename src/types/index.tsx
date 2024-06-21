@@ -8,7 +8,7 @@ export interface UserInfo {
 export interface SubscriptionProps {
   repo_id: string;
   repo_name: string;
-  events: { id: string; name: string }[] | null;
+  events: { id: string; event_name: string }[] | null;
 }
 
 export interface SubscriptionFormProps {

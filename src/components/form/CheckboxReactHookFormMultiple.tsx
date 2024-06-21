@@ -10,6 +10,7 @@ import { NotificationEdit, NotificationProps } from "@/types";
 import { EventSelectionField } from "./EventSelectionField";
 import { updateSubscription, createSubscription } from "@/lib/api";
 import { CheckboxReactHookFormMultipleProps } from "./Checkbox";
+import { useState } from "react";
 
 export function CheckboxReactHookFormMultiple({
   user_id,
@@ -18,6 +19,7 @@ export function CheckboxReactHookFormMultiple({
   items,
   notificationSubscription,
 }: CheckboxReactHookFormMultipleProps) {
+  const [disabled, setDisabled] = useState(false);
   const notASubscription = "00000000-0000-0000-0000-000000000000";
   const FormSchema = z.object({
     user_id: z.string().uuid(),
@@ -37,8 +39,12 @@ export function CheckboxReactHookFormMultiple({
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
+    setDisabled(true);
     try {
-      if (!(notificationSubscription == notASubscription)) {
+      if (
+        notificationSubscription &&
+        notificationSubscription !== notASubscription
+      ) {
         const dataTransformed: NotificationEdit = {
           notificationSubscription,
           user_id: data.user_id,
@@ -52,7 +58,27 @@ export function CheckboxReactHookFormMultiple({
               .map((event) => event.event_name),
           },
         };
-        await updateSubscription(dataTransformed);
+        const res = await updateSubscription(dataTransformed);
+        if (!res.ok) {
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: (
+              <Typography variant="p">
+                Failed to update subscription. Please try again.
+              </Typography>
+            ),
+          });
+        } else {
+          toast({
+            title: "Success",
+            description: (
+              <Typography variant="p">
+                Subscription has been successfully updated.
+              </Typography>
+            ),
+          });
+        }
       } else {
         const dataTransformed: NotificationProps = {
           user_id: data.user_id,
@@ -60,7 +86,6 @@ export function CheckboxReactHookFormMultiple({
           events: data.items,
         };
         const res = await createSubscription(dataTransformed);
-        console.log(!res.ok);
         if (!res.ok) {
           toast({
             variant: "destructive",
@@ -94,6 +119,7 @@ export function CheckboxReactHookFormMultiple({
         ),
       });
     }
+    setDisabled(false);
   }
 
   return (
@@ -103,7 +129,7 @@ export function CheckboxReactHookFormMultiple({
         className="space-y-8 border w-full p-4 rounded-md border-gray-500 "
       >
         <EventSelectionField form={form} items={items} />
-        <Button type="submit" size="lg" color="ghost">
+        <Button type="submit" size="lg" color="ghost" disabled={disabled}>
           <Typography variant="p" className="text-black flex">
             Submit
           </Typography>
