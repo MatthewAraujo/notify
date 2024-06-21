@@ -10,8 +10,8 @@ import {
 } from "@/components/ui/form";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Tooltiper } from "@/components/utils/tooltip";
-import { Events } from "@/types";
 import { UseFormReturn } from "react-hook-form";
+import { Events } from "@/types";
 
 interface EventSelectionFieldProps {
   form: UseFormReturn<any>;
@@ -45,13 +45,13 @@ export function EventSelectionField({ form, items }: EventSelectionFieldProps) {
                     >
                       <FormControl>
                         <Checkbox
-                          checked={field.value?.includes(item.event_name)}
+                          checked={field.value?.includes(item.id)}
                           onCheckedChange={(checked) => {
                             return checked
-                              ? field.onChange([...field.value, item.event_name])
+                              ? field.onChange([...field.value, item.id])
                               : field.onChange(
                                 field.value?.filter(
-                                  (value: string) => value !== item.event_name
+                                  (value) => value !== item.id
                                 )
                               );
                           }}

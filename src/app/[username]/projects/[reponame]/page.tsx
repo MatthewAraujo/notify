@@ -11,7 +11,6 @@ export default async function Page({
   return (
     <div className="mx-auto h-full max-w-2xl w-full space-y-8 pt-10">
       <ServerEventsLoader user_id={subscription.user_id} repo_name={reponame} events={subscription.events} notificationSubscription={subscription.notification_subscription_id} />
-
     </div>
   );
 }

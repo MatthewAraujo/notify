@@ -11,9 +11,9 @@ import {
 
 import { toast } from "@/components/ui/use-toast";
 import Typography from "@/components/ui/typography";
-import { EventSelectionField } from "./EventSelectionField";
-import { createSubscription, updateSubscription } from "@/lib/api";
 import { Events, NotificationEdit, NotificationProps } from "@/types";
+import { EventSelectionField } from "./EventSelectionField";
+import { updateSubscription, createSubscription } from "@/lib/api";
 
 interface CheckboxReactHookFormMultipleProps {
   user_id: string;
@@ -28,7 +28,8 @@ export function CheckboxReactHookFormMultiple({
   repo_name,
   events,
   items,
-  notificationSubscription
+  notificationSubscription,
+
 }: CheckboxReactHookFormMultipleProps) {
   const FormSchema = z.object({
     user_id: z.string().uuid(),
@@ -41,11 +42,9 @@ export function CheckboxReactHookFormMultiple({
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      user_id, // get from page
-      repo_name, // get from page
-      items: [
-        ...events.map((event) => event.event_name),
-      ],
+      user_id,
+      repo_name,
+      items: events ? events.map((event) => event.event_name) : [],
     },
   });
 
@@ -95,6 +94,7 @@ export function CheckboxReactHookFormMultiple({
     }
   }
 
+
   return (
     <Form {...form}>
       <form
@@ -111,3 +111,5 @@ export function CheckboxReactHookFormMultiple({
     </Form>
   );
 }
+
+
