@@ -11,14 +11,16 @@ import {
 
 import { toast } from "@/components/ui/use-toast";
 import Typography from "@/components/ui/typography";
-import { Events } from "@/types";
 import { EventSelectionField } from "./EventSelectionField";
+import { createSubscription, updateSubscription } from "@/lib/api";
+import { Events, NotificationEdit, NotificationProps } from "@/types";
 
 interface CheckboxReactHookFormMultipleProps {
   user_id: string;
   repo_name: string;
   events: Events[];
   items: Events[];
+  notificationSubscription: string;
 }
 
 export function CheckboxReactHookFormMultiple({
@@ -26,6 +28,7 @@ export function CheckboxReactHookFormMultiple({
   repo_name,
   events,
   items,
+  notificationSubscription
 }: CheckboxReactHookFormMultipleProps) {
   const FormSchema = z.object({
     user_id: z.string().uuid(),
@@ -44,22 +47,50 @@ export function CheckboxReactHookFormMultiple({
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    const dataTransformed = {
-      user_id: data.user_id,
-      repo_name: data.repo_name,
-      items: data.items,
-    }
-    toast({
-      description: (
-        <div>
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    try {
+      if (events.length > 0) {
+        const dataTransformed: NotificationEdit = {
+          notificationSubscription,
+          user_id: data.user_id,
+          repo_name: data.repo_name,
+          events: {
+            added: data.items.filter((item) => !events.some((event) => event.event_name === item)),
+            removed: events.filter((event) => !data.items.includes(event.event_name)).map((event) => event.event_name),
+          },
+        };
+        await updateSubscription(dataTransformed);
+      } else {
+        const dataTransformed: NotificationProps = {
+          user_id: data.user_id,
+          repo_name: data.repo_name,
+          events: data.items,
+        };
+        await createSubscription(dataTransformed);
+      }
+
+      toast({
+        description: (
+          <div>
+            <Typography variant="p">
+              {data.items.length} items selected.
+            </Typography>
+            <Typography variant="p">{data.items.join(", ")}</Typography>
+          </div>
+        ),
+      });
+    } catch (error) {
+      console.error(error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: (
           <Typography variant="p">
-            {data.items.length} items selected.
+            Failed to process subscription. Please try again.
           </Typography>
-          <Typography variant="p">{data.items.join(", ")}</Typography>
-        </div>
-      ),
-    });
+        ),
+      });
+    }
   }
 
   return (

@@ -8,12 +8,14 @@ interface ServerEventsLoaderProps {
   user_id: string;
   repo_name: string;
   events: Events[];
+  notificationSubscription: string;
 }
 
 export async function ServerEventsLoader({
   user_id,
   repo_name,
   events,
+  notificationSubscription
 }: ServerEventsLoaderProps) {
   const items = await loadEvents();
   return (
@@ -22,6 +24,7 @@ export async function ServerEventsLoader({
       repo_name={repo_name}
       events={events}
       items={items}
+      notificationSubscription={notificationSubscription}
     />
   );
 }
