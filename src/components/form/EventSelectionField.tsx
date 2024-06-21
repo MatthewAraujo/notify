@@ -45,15 +45,18 @@ export function EventSelectionField({ form, items }: EventSelectionFieldProps) {
                     >
                       <FormControl>
                         <Checkbox
-                          checked={field.value?.includes(item.id)}
+                          checked={field.value?.includes(item.event_name)}
                           onCheckedChange={(checked) => {
                             return checked
-                              ? field.onChange([...field.value, item.id])
+                              ? field.onChange([
+                                  ...field.value,
+                                  item.event_name,
+                                ])
                               : field.onChange(
-                                field.value?.filter(
-                                  (value) => value !== item.id
-                                )
-                              );
+                                  field.value?.filter(
+                                    (value: string) => value !== item.event_name
+                                  )
+                                );
                           }}
                         />
                       </FormControl>

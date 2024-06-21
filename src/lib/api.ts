@@ -1,4 +1,10 @@
-import { SubscriptionProps, SubscriptionFormProps, Events, NotificationEdit, NotificationProps } from "@/types";
+import {
+  SubscriptionProps,
+  SubscriptionFormProps,
+  Events,
+  NotificationEdit,
+  NotificationProps,
+} from "@/types";
 
 export const url = "http://localhost:8080/api/v1";
 
@@ -22,7 +28,11 @@ export const getUserRepos = async ({ username }: UsernameProps) => {
   return data as SubscriptionProps[];
 };
 
-export const getSubscriptionByRepo = async ({ reponame }: { reponame: string }) => {
+export const getSubscriptionByRepo = async ({
+  reponame,
+}: {
+  reponame: string;
+}) => {
   const res = await fetch(`${url}/events/${reponame}`, {
     cache: "no-store",
   });
@@ -39,7 +49,7 @@ export const getSubscriptionByRepo = async ({ reponame }: { reponame: string }) 
   }
 
   return data as SubscriptionFormProps;
-}
+};
 
 export const getAllEvents = async () => {
   const res = await fetch(`${url}/events`);
@@ -47,19 +57,21 @@ export const getAllEvents = async () => {
   return data as Events[];
 };
 
-
 export const createSubscription = async (data: NotificationProps) => {
   const res = await fetch(`${url}/notification`, {
     method: "POST",
     body: JSON.stringify(data),
   });
-  return res
-}
+  return res;
+};
 
 export const updateSubscription = async (data: NotificationEdit) => {
-  const res = await fetch(`${url}/notification/${data.notificationSubscription}`, {
-    method: "PUT",
-    body: JSON.stringify(data),
-  });
-  return res.ok;
-}
+  const res = await fetch(
+    `${url}/notification/${data.notificationSubscription}`,
+    {
+      method: "PUT",
+      body: JSON.stringify(data),
+    }
+  );
+  return res;
+};
