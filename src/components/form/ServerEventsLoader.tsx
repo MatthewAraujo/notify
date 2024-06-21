@@ -1,7 +1,7 @@
 // components/ServerEventsLoader.tsx
 import { Events } from "@/types";
 import { loadEvents } from "./loadEvents";
-import { CheckboxReactHookFormMultiple } from "./Checkbox";
+import { CheckboxReactHookFormMultiple } from "./CheckboxReactHookFormMultiple";
 import events from "events";
 
 interface ServerEventsLoaderProps {
@@ -15,7 +15,7 @@ export async function ServerEventsLoader({
   user_id,
   repo_name,
   events,
-  notificationSubscription
+  notificationSubscription,
 }: ServerEventsLoaderProps) {
   const items = await loadEvents();
   return (

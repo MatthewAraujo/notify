@@ -1,25 +1,15 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { map, z } from "zod";
-
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-
 import { toast } from "@/components/ui/use-toast";
 import Typography from "@/components/ui/typography";
-import { Events, NotificationEdit, NotificationProps } from "@/types";
+import { NotificationEdit, NotificationProps } from "@/types";
 import { EventSelectionField } from "./EventSelectionField";
 import { updateSubscription, createSubscription } from "@/lib/api";
-
-interface CheckboxReactHookFormMultipleProps {
-  user_id: string;
-  repo_name: string;
-  events: Events[];
-  items: Events[];
-  notificationSubscription: string;
-}
+import { CheckboxReactHookFormMultipleProps } from "./Checkbox";
 
 export function CheckboxReactHookFormMultiple({
   user_id,
@@ -40,8 +30,8 @@ export function CheckboxReactHookFormMultiple({
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      user_id, // get from page
-      repo_name, // get from page
+      user_id,
+      repo_name,
       items: events ? events.map((event) => event.event_name) : [],
     },
   });
@@ -62,27 +52,7 @@ export function CheckboxReactHookFormMultiple({
               .map((event) => event.event_name),
           },
         };
-        const res = await updateSubscription(dataTransformed);
-        if (!res.ok) {
-          toast({
-            variant: "destructive",
-            title: "Error",
-            description: (
-              <Typography variant="p">
-                Failed to process subscription. Please try again.
-              </Typography>
-            ),
-          });
-        } else {
-          toast({
-            title: "Success",
-            description: (
-              <Typography variant="p">
-                Subscription has been successfully processed.
-              </Typography>
-            ),
-          });
-        }
+        await updateSubscription(dataTransformed);
       } else {
         const dataTransformed: NotificationProps = {
           user_id: data.user_id,
@@ -90,6 +60,7 @@ export function CheckboxReactHookFormMultiple({
           events: data.items,
         };
         const res = await createSubscription(dataTransformed);
+        console.log(!res.ok);
         if (!res.ok) {
           toast({
             variant: "destructive",
