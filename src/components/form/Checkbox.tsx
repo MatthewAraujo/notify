@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { map, z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -40,9 +40,7 @@ export function CheckboxReactHookFormMultiple({
     defaultValues: {
       user_id, // get from page
       repo_name, // get from page
-      items: [
-        ...events.map((event) => event.event_name),
-      ],
+      items: events ? events.map((event) => event.event_name) : [],
     },
   });
 
@@ -52,7 +50,6 @@ export function CheckboxReactHookFormMultiple({
       repo_name: data.repo_name,
       items: data.items,
     }
-    console.log(dataTransformed);
     toast({
       description: (
         <div>
