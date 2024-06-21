@@ -13,7 +13,7 @@ import { Events, NotificationEdit, NotificationProps } from "@/types";
 import { EventSelectionField } from "./EventSelectionField";
 import { updateSubscription, createSubscription } from "@/lib/api";
 
-interface CheckboxReactHookFormMultipleProps {
+export interface CheckboxReactHookFormMultipleProps {
   user_id: string;
   repo_name: string;
   events: Events[];
