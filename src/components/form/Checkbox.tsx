@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { map, z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
@@ -40,8 +40,8 @@ export function CheckboxReactHookFormMultiple({
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      user_id,
-      repo_name,
+      user_id, // get from page
+      repo_name, // get from page
       items: events ? events.map((event) => event.event_name) : [],
     },
   });

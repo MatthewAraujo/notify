@@ -14,7 +14,7 @@ export default async function Page({
   return (
     <div className="mx-auto px-10 xl:px-0 h-full space-y-8 w-full">
       <h1 className="text-2xl font-semibold pt-2">
-        {username}&apos;s Projects
+        {username}&apos;s Project
       </h1>
       <Dashboard username={username} items={items} />
     </div>
@@ -31,9 +31,9 @@ function transformSubscriptionProps(subscription: SubscriptionProps): {
     repo_name: subscription.repo_name,
     events: subscription.events
       ? subscription.events.map((event) => ({
-          id: event.id,
-          event_name: event.name,
-        }))
+        id: event.id,
+        event_name: event.name,
+      }))
       : [],
   };
 }
