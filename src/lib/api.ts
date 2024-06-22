@@ -66,11 +66,22 @@ export const createSubscription = async (data: NotificationProps) => {
 };
 
 export const updateSubscription = async (data: NotificationEdit) => {
+  const newData = {
+    user_id: data.user_id,
+    events: {
+      added: data.events.added,
+      remove: data.events.removed,
+    },
+    repo_name: data.repo_name,
+  }
   const res = await fetch(
     `${url}/notification/${data.notificationSubscription}`,
     {
       method: "PUT",
-      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newData),
     }
   );
   return res;
