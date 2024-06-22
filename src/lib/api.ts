@@ -66,6 +66,14 @@ export const createSubscription = async (data: NotificationProps) => {
 };
 
 export const updateSubscription = async (data: NotificationEdit) => {
+  let headers = new Headers();
+
+  headers.append('Content-Type', 'application/json');
+  headers.append('Accept', 'application/json');
+
+  headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
+  headers.append('Access-Control-Allow-Credentials', 'true');
+
   const newData = {
     user_id: data.user_id,
     events: {
@@ -77,11 +85,10 @@ export const updateSubscription = async (data: NotificationEdit) => {
   const res = await fetch(
     `${url}/notification/${data.notificationSubscription}`,
     {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      method: 'PUT',
+      headers: headers,
       body: JSON.stringify(newData),
+      credentials: 'include',
     }
   );
   return res;
